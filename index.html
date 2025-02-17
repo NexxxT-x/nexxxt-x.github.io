@@ -51,7 +51,7 @@
         // Generate initial platforms
         function generatePlatforms() {
             platforms = [];
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 10; i++) {
                 platforms.push({
                     x: Math.random() * (canvas.width - platformWidth),
                     y: i * (canvas.height / 5)
@@ -102,7 +102,7 @@
             if (player.y < scrollY + 100) {
                 scrollY = player.y - 100;
                 platforms.forEach(platform => {
-                    platform.y += 5;
+                    platform.y += 15;
                     // Regenerate platforms that go off screen
                     if (platform.y > canvas.height) {
                         platform.y = -platformHeight;

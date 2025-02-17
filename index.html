@@ -31,8 +31,8 @@
         const player = {
             x: canvas.width / 2,
             y: canvas.height - 100,
-            width: 40,
-            height: 40,
+            width: 20,
+            height: 20,
             velocityY: 0,
             jumpForce: -15
         };
@@ -102,7 +102,7 @@
             if (player.y < scrollY + 100) {
                 scrollY = player.y - 100;
                 platforms.forEach(platform => {
-                    platform.y += 15;
+                    platform.y += 5;
                     // Regenerate platforms that go off screen
                     if (platform.y > canvas.height) {
                         platform.y = -platformHeight;

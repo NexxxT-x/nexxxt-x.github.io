@@ -1,143 +1,169 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Touch Flipper Game</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Touch Doodle Jump</title>
     <style>
-        canvas {
-            border: 1px solid black;
+        body {
+            margin: 0;
+            overflow: hidden;
             touch-action: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            margin: auto;
+            background: #222;
+        }
+
+        #gameArea {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .flipper {
+            position: absolute;
+            bottom: 20px;
+            width: 120px;
+            height: 40px;
+            background: #f00;
+            border-radius: 5px;
+            transition: transform 0.1s;
+        }
+
+        #leftFlipper {
+            left: 20px;
+            transform-origin: right center;
+        }
+
+        #rightFlipper {
+            right: 20px;
+            transform-origin: left center;
+        }
+
+        .active {
+            transform: rotate(-30deg);
+        }
+
+        #rightFlipper.active {
+            transform: rotate(30deg);
+        }
+
+        #ball {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border-radius: 50%;
+            transition: all 0.05s;
         }
     </style>
 </head>
 <body>
-    <canvas id="gameCanvas"></canvas>
+    <div id="gameArea">
+        <div id="leftFlipper" class="flipper"></div>
+        <div id="rightFlipper" class="flipper"></div>
+        <div id="ball"></div>
+    </div>
 
     <script>
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
+        const ball = document.getElementById('ball');
+        const leftFlipper = document.getElementById('leftFlipper');
+        const rightFlipper = document.getElementById('rightFlipper');
+        
+        let ballX = 50;
+        let ballY = 50;
+        let ballSpeedX = 0;
+        let ballSpeedY = 0;
+        let gravity = 0.5;
+        let isLeftActive = false;
+        let isRightActive = false;
 
-        // Set canvas size
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        // Initialize ball position
+        resetBall();
 
-        // Player properties
-        const player = {
-            x: canvas.width / 2,
-            y: canvas.height - 100,
-            width: 20,
-            height: 20,
-            velocityY: 0,
-            jumpForce: -15
-        };
-
-        // Game state
-        let platforms = [];
-        let scrollY = 0;
-        let isTouching = false;
-        let touchX = 0;
-        let xOffset = 0;
-
-        // Platform properties
-        const platformWidth = 70;
-        const platformHeight = 20;
-
-        // Generate initial platforms
-        function generatePlatforms() {
-            platforms = [];
-            for (let i = 0; i < 10; i++) {
-                platforms.push({
-                    x: Math.random() * (canvas.width - platformWidth),
-                    y: i * (canvas.height / 5)
-                });
-            }
+        function resetBall() {
+            ballX = window.innerWidth / 2;
+            ballY = 100;
+            ballSpeedX = (Math.random() - 0.5) * 10;
+            ballSpeedY = -10;
         }
 
-        // Touch events
-        canvas.addEventListener('touchstart', (e) => {
-            isTouching = true;
-            touchX = e.touches[0].clientX;
-        });
+        function updateBall() {
+            // Apply gravity
+            ballSpeedY += gravity;
+            
+            // Update position
+            ballX += ballSpeedX;
+            ballY += ballSpeedY;
 
-        canvas.addEventListener('touchmove', (e) => {
-            if (isTouching) {
-                const newTouchX = e.touches[0].clientX;
-                xOffset += (newTouchX - touchX) * 2;
-                touchX = newTouchX;
+            // Wall collisions
+            if (ballX < 10 || ballX > window.innerWidth - 10) {
+                ballSpeedX *= -0.8;
+                ballX = Math.max(10, Math.min(ballX, window.innerWidth - 10));
+            }
+
+            // Floor collision
+            if (ballY > window.innerHeight - 10) {
+                resetBall();
+            }
+
+            // Flipper collisions
+            const flipperForce = 15;
+            const flipperHeight = 40;
+            const flipperY = window.innerHeight - 60;
+
+            if (isLeftActive && ballY > flipperY && ballY < flipperY + flipperHeight &&
+                ballX > 20 && ballX < 140) {
+                ballSpeedY = -flipperForce;
+                ballSpeedX = Math.abs(ballSpeedX) + 2;
+            }
+
+            if (isRightActive && ballY > flipperY && ballY < flipperY + flipperHeight &&
+                ballX > window.innerWidth - 140 && ballX < window.innerWidth - 20) {
+                ballSpeedY = -flipperForce;
+                ballSpeedX = -(Math.abs(ballSpeedX) + 2);
+            }
+
+            // Update ball position
+            ball.style.left = `${ballX - 10}px`;
+            ball.style.top = `${ballY - 10}px`;
+        }
+
+        // Touch handling
+        const gameArea = document.getElementById('gameArea');
+        
+        gameArea.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            const touches = e.touches;
+            for (let i = 0; i < touches.length; i++) {
+                const touch = touches[i];
+                if (touch.clientX < window.innerWidth / 2) {
+                    leftFlipper.classList.add('active');
+                    isLeftActive = true;
+                } else {
+                    rightFlipper.classList.add('active');
+                    isRightActive = true;
+                }
             }
         });
 
-        canvas.addEventListener('touchend', () => {
-            isTouching = false;
+        gameArea.addEventListener('touchend', (e) => {
+            leftFlipper.classList.remove('active');
+            rightFlipper.classList.remove('active');
+            isLeftActive = false;
+            isRightActive = false;
         });
 
         // Game loop
-        function update() {
-            // Apply gravity
-            player.velocityY += 0.5;
-            player.y += player.velocityY;
-
-            // Horizontal movement
-            player.x = canvas.width/2 + xOffset;
-            player.x = Math.max(0, Math.min(canvas.width - player.width, player.x));
-
-            // Platform collision
-            platforms.forEach(platform => {
-                if (player.velocityY > 0 &&
-                    player.x + player.width > platform.x &&
-                    player.x < platform.x + platformWidth &&
-                    player.y + player.height < platform.y + platformHeight &&
-                    player.y + player.height + player.velocityY >= platform.y) {
-                    player.velocityY = player.jumpForce;
-                }
-            });
-
-            // Scroll screen
-            if (player.y < scrollY + 100) {
-                scrollY = player.y - 100;
-                platforms.forEach(platform => {
-                    platform.y += 5;
-                    // Regenerate platforms that go off screen
-                    if (platform.y > canvas.height) {
-                        platform.y = -platformHeight;
-                        platform.x = Math.random() * (canvas.width - platformWidth);
-                    }
-                });
-            }
-
-            // Game over
-            if (player.y > canvas.height) {
-                player.y = canvas.height - 100;
-                scrollY = 0;
-                xOffset = 0;
-                generatePlatforms();
-            }
-
-            // Draw
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Draw player
-            ctx.fillStyle = 'blue';
-            ctx.fillRect(player.x, player.y - scrollY, player.width, player.height);
-
-            // Draw platforms
-            ctx.fillStyle = 'green';
-            platforms.forEach(platform => {
-                ctx.fillRect(platform.x, platform.y - scrollY, platformWidth, platformHeight);
-            });
-
-            requestAnimationFrame(update);
+        function gameLoop() {
+            updateBall();
+            requestAnimationFrame(gameLoop);
         }
 
-        // Start game
-        generatePlatforms();
-        update();
+        // Start the game
+        gameLoop();
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            resetBall();
+        });
     </script>
 </body>
 </html>

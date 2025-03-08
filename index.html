@@ -277,16 +277,9 @@
         //Bind keyboards/mouse/touch events
         game.getRenderer().bindStandardEvents(game.getInputManager(), window, document);
 
-        //Load all assets and start the game
-        game.loadAllAssets(function() {
-            game.startGameLoop();
-        });
-    })();
 
 
-
-
-		
+	    
 const Pi = window.Pi;
 
 // Empty array for testing purposes:
@@ -302,6 +295,26 @@ Pi.authenticate(scopes, onIncompletePaymentFound).then(function(auth){
     console.log(auth)
 }).catch(function(error) {
   console.error(error);
+	
+
+
+
+
+
+
+
+
+	    
+        //Load all assets and start the game
+        game.loadAllAssets(function() {
+            game.startGameLoop();
+        });
+    })();
+
+
+
+
+		
 
 
 

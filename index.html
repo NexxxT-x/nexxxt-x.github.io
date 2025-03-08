@@ -284,22 +284,6 @@
         game.loadAllAssets(function() {
             game.startGameLoop();
 
-		const Pi = window.Pi;
-
-// Empty array for testing purposes:
-const scopes = [ ];
-
-//Empty function that will log an incomplete payment if found
-//Developer needs to implement this callback function
-function onIncompletePaymentFound(payment) {
-  console.log(payment);
-  };
-
-Pi.authenticate(scopes, onIncompletePaymentFound).then(function(auth){
-    console.log(auth)
-}).catch(function(error) {
-  console.error(error);
-
 	
         });
     })();

@@ -258,9 +258,8 @@
 	<script src="data.js" crossorigin="anonymous"></script>
 
 	<script src="https://sdk.minepi.com/pi-sdk.js"></script>
-	<script>
-  	Pi.init({ version: "2.0" });
-	</script>
+	<script>Pi.init({ version: "2.0" })</script>
+
 	
 
 </head>
@@ -270,6 +269,8 @@
 	<script>
 
     (function() {
+
+	    
         //Initialization
 // Authenticate the user, and get permission to request payments from them:
 	const scopes = ['payments'];
@@ -322,6 +323,18 @@
         });
     })();
 
+		// Authenticate the user, and get permission to request payments from them:
+const scopes = ['payments'];
+
+// Read more about this callback in the SDK reference:
+function onIncompletePaymentFound(payment) { /* ... */ };
+
+Pi.authenticate(scopes, onIncompletePaymentFound).then(function(auth) {
+  console.log(`Hi there! You're ready to make payments!`);
+}).catch(function(error) {
+  console.error(error);
+});
+		
 	</script>
 </body>
 </html>

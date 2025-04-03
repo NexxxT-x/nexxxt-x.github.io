@@ -30,6 +30,9 @@ gdjs.MenuCode.GDTitleObjects3= [];
 gdjs.MenuCode.GDScreenOrientationCheckerObjects1= [];
 gdjs.MenuCode.GDScreenOrientationCheckerObjects2= [];
 gdjs.MenuCode.GDScreenOrientationCheckerObjects3= [];
+gdjs.MenuCode.GDloginObjects1= [];
+gdjs.MenuCode.GDloginObjects2= [];
+gdjs.MenuCode.GDloginObjects3= [];
 
 
 gdjs.MenuCode.eventsList0 = function(runtimeScene) {
@@ -132,7 +135,7 @@ isConditionTrue_0 = false;
 isConditionTrue_0 = gdjs.evtTools.leaderboards.isLeaderboardViewErrored();
 if (isConditionTrue_0) {
 isConditionTrue_0 = false;
-{isConditionTrue_0 = runtimeScene.getOnceTriggers().triggerOnce(20368196);
+{isConditionTrue_0 = runtimeScene.getOnceTriggers().triggerOnce(20454108);
 }
 }
 if (isConditionTrue_0) {
@@ -149,7 +152,7 @@ if (isConditionTrue_0) {
 
 let isConditionTrue_0 = false;
 isConditionTrue_0 = false;
-{isConditionTrue_0 = runtimeScene.getOnceTriggers().triggerOnce(20355596);
+{isConditionTrue_0 = runtimeScene.getOnceTriggers().triggerOnce(20445860);
 }
 if (isConditionTrue_0) {
 gdjs.copyArray(runtimeScene.getObjects("Black"), gdjs.MenuCode.GDBlackObjects2);
@@ -273,6 +276,9 @@ gdjs.MenuCode.GDTitleObjects3.length = 0;
 gdjs.MenuCode.GDScreenOrientationCheckerObjects1.length = 0;
 gdjs.MenuCode.GDScreenOrientationCheckerObjects2.length = 0;
 gdjs.MenuCode.GDScreenOrientationCheckerObjects3.length = 0;
+gdjs.MenuCode.GDloginObjects1.length = 0;
+gdjs.MenuCode.GDloginObjects2.length = 0;
+gdjs.MenuCode.GDloginObjects3.length = 0;
 
 gdjs.MenuCode.eventsList3(runtimeScene);
 gdjs.MenuCode.GDPlayButtonObjects1.length = 0;
@@ -305,6 +311,9 @@ gdjs.MenuCode.GDTitleObjects3.length = 0;
 gdjs.MenuCode.GDScreenOrientationCheckerObjects1.length = 0;
 gdjs.MenuCode.GDScreenOrientationCheckerObjects2.length = 0;
 gdjs.MenuCode.GDScreenOrientationCheckerObjects3.length = 0;
+gdjs.MenuCode.GDloginObjects1.length = 0;
+gdjs.MenuCode.GDloginObjects2.length = 0;
+gdjs.MenuCode.GDloginObjects3.length = 0;
 
 
 return;

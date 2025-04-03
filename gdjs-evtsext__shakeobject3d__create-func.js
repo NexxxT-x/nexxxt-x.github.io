@@ -8,7 +8,7 @@ if (typeof gdjs.evtsExt__ShakeObject3D__Create !== "undefined") {
 gdjs.evtsExt__ShakeObject3D__Create = {};
 
 
-gdjs.evtsExt__ShakeObject3D__Create.userFunc0x14aafc8 = function GDJSInlineCode(runtimeScene, eventsFunctionContext) {
+gdjs.evtsExt__ShakeObject3D__Create.userFunc0x1472440 = function GDJSInlineCode(runtimeScene, eventsFunctionContext) {
 "use strict";
 const name = eventsFunctionContext.getArgument("Name");
 
@@ -19,7 +19,7 @@ gdjs.evtsExt__ShakeObject3D__Create.eventsList0 = function(runtimeScene, eventsF
 {
 
 
-gdjs.evtsExt__ShakeObject3D__Create.userFunc0x14aafc8(runtimeScene, typeof eventsFunctionContext !== 'undefined' ? eventsFunctionContext : undefined);
+gdjs.evtsExt__ShakeObject3D__Create.userFunc0x1472440(runtimeScene, typeof eventsFunctionContext !== 'undefined' ? eventsFunctionContext : undefined);
 
 }
 

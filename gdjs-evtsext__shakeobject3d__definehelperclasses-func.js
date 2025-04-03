@@ -8,7 +8,7 @@ if (typeof gdjs.evtsExt__ShakeObject3D__DefineHelperClasses !== "undefined") {
 gdjs.evtsExt__ShakeObject3D__DefineHelperClasses = {};
 
 
-gdjs.evtsExt__ShakeObject3D__DefineHelperClasses.userFunc0x14aafc8 = function GDJSInlineCode(runtimeScene, eventsFunctionContext) {
+gdjs.evtsExt__ShakeObject3D__DefineHelperClasses.userFunc0xd9b670 = function GDJSInlineCode(runtimeScene, eventsFunctionContext) {
 "use strict";
 if (gdjs._shakeObjectExtension) {
     return;
@@ -649,7 +649,7 @@ gdjs.evtsExt__ShakeObject3D__DefineHelperClasses.eventsList0 = function(runtimeS
 {
 
 
-gdjs.evtsExt__ShakeObject3D__DefineHelperClasses.userFunc0x14aafc8(runtimeScene, typeof eventsFunctionContext !== 'undefined' ? eventsFunctionContext : undefined);
+gdjs.evtsExt__ShakeObject3D__DefineHelperClasses.userFunc0xd9b670(runtimeScene, typeof eventsFunctionContext !== 'undefined' ? eventsFunctionContext : undefined);
 
 }
 

@@ -8,7 +8,7 @@ if (typeof gdjs.evtsExt__Tween3D__RgbMean !== "undefined") {
 gdjs.evtsExt__Tween3D__RgbMean = {};
 
 
-gdjs.evtsExt__Tween3D__RgbMean.userFunc0x11660a8 = function GDJSInlineCode(runtimeScene, eventsFunctionContext) {
+gdjs.evtsExt__Tween3D__RgbMean.userFunc0x1487aa0 = function GDJSInlineCode(runtimeScene, eventsFunctionContext) {
 "use strict";
 const { rgbToHsl, hslToRgb } = gdjs.__tween3DExtension;
 
@@ -33,7 +33,7 @@ gdjs.evtsExt__Tween3D__RgbMean.eventsList0 = function(runtimeScene, eventsFuncti
 {
 
 
-gdjs.evtsExt__Tween3D__RgbMean.userFunc0x11660a8(runtimeScene, typeof eventsFunctionContext !== 'undefined' ? eventsFunctionContext : undefined);
+gdjs.evtsExt__Tween3D__RgbMean.userFunc0x1487aa0(runtimeScene, typeof eventsFunctionContext !== 'undefined' ? eventsFunctionContext : undefined);
 
 }
 

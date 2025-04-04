@@ -266,28 +266,7 @@
 <body>
 
     
-	<script>
-
-	
-// Initialize Pi Network SDK
-let pi;
-
-async function initializePi() {
-  pi = new window.Pi({
-    sandbox: true, // Use false for production
-    clientId: "YOUR_APP_ID",
-    clientSecret: "YOUR_APP_SECRET"
-  });
-
-  // Optional: Check for existing authentication
-  const user = await pi.getUser();
-  if (user) {
-    console.log("Authenticated user:", user);
-  }
-}
-
-// Initialize when the window loads
-window.addEventListener('load', initializePi);
+<script>
 
 	
     (function() {

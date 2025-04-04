@@ -267,28 +267,10 @@
 	
 </head>
 <body>
-
-    <script>
-  let pi;
-  async function initializePi() {
-    pi = new window.Pi({
-      sandbox: true, // Use "false" for production
-      clientId: "YOUR_APP_ID",
-      clientSecret: "YOUR_APP_SECRET"
-    });
-    
-    // Check for existing authentication
-    const user = await pi.getUser();
-    if (user) {
-      console.log("Authenticated user:", user);
-    }
-  }
-  window.addEventListener('load', initializePi);
-    </script>
 	
 <script>
 	    // Authenticate the user, and get permission to request payments from them:
-	    const scopes = ['payments'];
+const scopes = ['payments'];
 
 // Read more about this callback in the SDK reference:
 function onIncompletePaymentFound(payment) { /* ... */ };

@@ -288,7 +288,12 @@
 	
 <script>
 	    // Authenticate the user, and get permission to request payments from them:
-const scopes = ['payments'];
+
+	
+	
+    (function() {
+        //Initialization
+	    const scopes = ['payments'];
 
 // Read more about this callback in the SDK reference:
 function onIncompletePaymentFound(payment) { /* ... */ };
@@ -314,10 +319,6 @@ Pi.createPayment({
   onCancel: function(paymentId) { /* ... */ },
   onError: function(error, payment) { /* ... */ },
 });
-	
-	
-    (function() {
-        //Initialization
 	    
         var game = new gdjs.RuntimeGame(gdjs.projectData, {});
 

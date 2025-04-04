@@ -284,10 +284,6 @@
     </script>
 	
 <script>
-
-	
-    (function() {
-        //Initialization
 	    // Authenticate the user, and get permission to request payments from them:
 const scopes = ['payments'];
 
@@ -315,8 +311,10 @@ Pi.createPayment({
   onCancel: function(paymentId) { /* ... */ },
   onError: function(error, payment) { /* ... */ },
 });
-
-
+	
+	
+    (function() {
+        //Initialization
 	    
         var game = new gdjs.RuntimeGame(gdjs.projectData, {});
 

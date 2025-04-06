@@ -61,21 +61,7 @@ gdjs.MenuCode.localVariables.pop();
 }
 
 
-};gdjs.MenuCode.userFunc0x106a5c0 = function GDJSInlineCode(runtimeScene) {
-"use strict";
-// Authenticate the user, and get permission to request payments from them:
-const scopes = ['payments'];
-
-// Read more about this callback in the SDK reference:
-function onIncompletePaymentFound(payment) { /* ... */ };
-
-Pi.authenticate(scopes, onIncompletePaymentFound).then(function(auth) {
-  console.log(`Hi there! You're ready to make payments!`);
-}).catch(function(error) {
-  console.error(error);
-});
-};
-gdjs.MenuCode.eventsList1 = function(runtimeScene) {
+};gdjs.MenuCode.eventsList1 = function(runtimeScene) {
 
 {
 
@@ -207,7 +193,7 @@ gdjs.copyArray(runtimeScene.getObjects("VolumeSlider"), gdjs.MenuCode.GDVolumeSl
 }
 
 
-};gdjs.MenuCode.userFunc0x1051d60 = function GDJSInlineCode(runtimeScene) {
+};gdjs.MenuCode.userFunc0x9ee888 = function GDJSInlineCode(runtimeScene) {
 "use strict";
 Pi.createPayment({
   // Amount of π to be paid:
@@ -240,12 +226,12 @@ let isConditionTrue_0 = false;
 {
 
 
-gdjs.MenuCode.userFunc0x1051d60(runtimeScene);
+gdjs.MenuCode.userFunc0x9ee888(runtimeScene);
 
 }
 
 
-};gdjs.MenuCode.userFunc0x14b9a20 = function GDJSInlineCode(runtimeScene) {
+};gdjs.MenuCode.userFunc0x1382388 = function GDJSInlineCode(runtimeScene) {
 "use strict";
 // Authenticate the user, and get permission to request payments from them:
 const scopes = ['payments'];
@@ -265,13 +251,7 @@ gdjs.MenuCode.eventsList4 = function(runtimeScene) {
 
 
 let isConditionTrue_0 = false;
-isConditionTrue_0 = false;
-isConditionTrue_0 = gdjs.evtTools.runtimeScene.sceneJustBegins(runtimeScene);
-if (isConditionTrue_0) {
-{gdjs.evtTools.camera.hideLayer(runtimeScene, "Settings");
-}
-{ //Subevents
-gdjs.MenuCode.eventsList0(runtimeScene);} //End of subevents
+{
 }
 
 }
@@ -280,7 +260,25 @@ gdjs.MenuCode.eventsList0(runtimeScene);} //End of subevents
 {
 
 
-gdjs.MenuCode.userFunc0x106a5c0(runtimeScene);
+gdjs.MenuCode.userFunc0x1382388(runtimeScene);
+
+}
+
+
+};gdjs.MenuCode.eventsList5 = function(runtimeScene) {
+
+{
+
+
+let isConditionTrue_0 = false;
+isConditionTrue_0 = false;
+isConditionTrue_0 = gdjs.evtTools.runtimeScene.sceneJustBegins(runtimeScene);
+if (isConditionTrue_0) {
+{gdjs.evtTools.camera.hideLayer(runtimeScene, "Settings");
+}
+{ //Subevents
+gdjs.MenuCode.eventsList0(runtimeScene);} //End of subevents
+}
 
 }
 
@@ -353,15 +351,10 @@ for (var i = 0, k = 0, l = gdjs.MenuCode.GDloginObjects1.length;i<l;++i) {
 }
 gdjs.MenuCode.GDloginObjects1.length = k;
 if (isConditionTrue_0) {
+
+{ //Subevents
+gdjs.MenuCode.eventsList4(runtimeScene);} //End of subevents
 }
-
-}
-
-
-{
-
-
-gdjs.MenuCode.userFunc0x14b9a20(runtimeScene);
 
 }
 
@@ -415,7 +408,7 @@ gdjs.MenuCode.GDloginObjects1.length = 0;
 gdjs.MenuCode.GDloginObjects2.length = 0;
 gdjs.MenuCode.GDloginObjects3.length = 0;
 
-gdjs.MenuCode.eventsList4(runtimeScene);
+gdjs.MenuCode.eventsList5(runtimeScene);
 gdjs.MenuCode.GDPlayButtonObjects1.length = 0;
 gdjs.MenuCode.GDPlayButtonObjects2.length = 0;
 gdjs.MenuCode.GDPlayButtonObjects3.length = 0;

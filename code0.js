@@ -61,7 +61,7 @@ gdjs.MenuCode.localVariables.pop();
 }
 
 
-};gdjs.MenuCode.userFunc0xebd9d0 = function GDJSInlineCode(runtimeScene) {
+};gdjs.MenuCode.userFunc0x106a5c0 = function GDJSInlineCode(runtimeScene) {
 "use strict";
 // Authenticate the user, and get permission to request payments from them:
 const scopes = ['payments'];
@@ -149,7 +149,7 @@ isConditionTrue_0 = false;
 isConditionTrue_0 = gdjs.evtTools.leaderboards.isLeaderboardViewErrored();
 if (isConditionTrue_0) {
 isConditionTrue_0 = false;
-{isConditionTrue_0 = runtimeScene.getOnceTriggers().triggerOnce(20456284);
+{isConditionTrue_0 = runtimeScene.getOnceTriggers().triggerOnce(14921164);
 }
 }
 if (isConditionTrue_0) {
@@ -166,7 +166,7 @@ if (isConditionTrue_0) {
 
 let isConditionTrue_0 = false;
 isConditionTrue_0 = false;
-{isConditionTrue_0 = runtimeScene.getOnceTriggers().triggerOnce(20214876);
+{isConditionTrue_0 = runtimeScene.getOnceTriggers().triggerOnce(17474868);
 }
 if (isConditionTrue_0) {
 gdjs.copyArray(runtimeScene.getObjects("Black"), gdjs.MenuCode.GDBlackObjects2);
@@ -207,21 +207,8 @@ gdjs.copyArray(runtimeScene.getObjects("VolumeSlider"), gdjs.MenuCode.GDVolumeSl
 }
 
 
-};gdjs.MenuCode.eventsList3 = function(runtimeScene) {
-
-{
-
-
-let isConditionTrue_0 = false;
-{
-}
-
-}
-
-
-};gdjs.MenuCode.userFunc0x11b7a18 = function GDJSInlineCode(runtimeScene) {
+};gdjs.MenuCode.userFunc0x1051d60 = function GDJSInlineCode(runtimeScene) {
 "use strict";
-
 Pi.createPayment({
   // Amount of π to be paid:
   amount: 3.14,
@@ -238,7 +225,27 @@ Pi.createPayment({
 });
 
 };
-gdjs.MenuCode.userFunc0x1051d60 = function GDJSInlineCode(runtimeScene) {
+gdjs.MenuCode.eventsList3 = function(runtimeScene) {
+
+{
+
+
+let isConditionTrue_0 = false;
+{
+}
+
+}
+
+
+{
+
+
+gdjs.MenuCode.userFunc0x1051d60(runtimeScene);
+
+}
+
+
+};gdjs.MenuCode.userFunc0x14b9a20 = function GDJSInlineCode(runtimeScene) {
 "use strict";
 // Authenticate the user, and get permission to request payments from them:
 const scopes = ['payments'];
@@ -273,7 +280,7 @@ gdjs.MenuCode.eventsList0(runtimeScene);} //End of subevents
 {
 
 
-gdjs.MenuCode.userFunc0xebd9d0(runtimeScene);
+gdjs.MenuCode.userFunc0x106a5c0(runtimeScene);
 
 }
 
@@ -333,14 +340,6 @@ gdjs.MenuCode.eventsList3(runtimeScene);} //End of subevents
 
 {
 
-
-gdjs.MenuCode.userFunc0x11b7a18(runtimeScene);
-
-}
-
-
-{
-
 gdjs.copyArray(runtimeScene.getObjects("login"), gdjs.MenuCode.GDloginObjects1);
 
 let isConditionTrue_0 = false;
@@ -362,7 +361,7 @@ if (isConditionTrue_0) {
 {
 
 
-gdjs.MenuCode.userFunc0x1051d60(runtimeScene);
+gdjs.MenuCode.userFunc0x14b9a20(runtimeScene);
 
 }
 

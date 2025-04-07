@@ -35,34 +35,6 @@ gdjs.MenuCode.GDloginObjects2= [];
 gdjs.MenuCode.GDloginObjects3= [];
 
 
-gdjs.MenuCode.userFunc0xe6c9f8 = function GDJSInlineCode(runtimeScene) {
-"use strict";
-        const scopes = ['payments','username'];
-        var accessToken
-        var username
-        
-
-        // Read more about this callback in the SDK reference:
-        function onIncompletePaymentFound(payment) { 
-            paymentId = payment.identifier
-            txid = payment.transaction.txid
-            $.post('/payment/complete',
-                    {
-                        paymentId: paymentId,
-                        txid: txid,
-                        debug: 'cancel'
-                    }
-                )
-        };
-
-        Pi.authenticate(scopes, onIncompletePaymentFound).then(function(auth) {
-          accessToken = auth.accessToken
-          username = auth.user.username
-          $('#username').text(username); // writes username to the page
-        }).catch(function(error) {
-          console.error(error);
-        });
-};
 gdjs.MenuCode.eventsList0 = function(runtimeScene) {
 
 {
@@ -85,31 +57,6 @@ if (isConditionTrue_0) {
 }{gdjs.evtTools.sound.setGlobalVolume(runtimeScene, gdjs.MenuCode.localVariables[0].getFromIndex(0).getAsNumber());
 }}
 gdjs.MenuCode.localVariables.pop();
-
-}
-
-
-{
-
-
-
-}
-
-
-{
-
-
-let isConditionTrue_0 = false;
-{
-}
-
-}
-
-
-{
-
-
-gdjs.MenuCode.userFunc0xe6c9f8(runtimeScene);
 
 }
 
@@ -246,74 +193,22 @@ gdjs.copyArray(runtimeScene.getObjects("VolumeSlider"), gdjs.MenuCode.GDVolumeSl
 }
 
 
-};gdjs.MenuCode.userFunc0xa30710 = function GDJSInlineCode(runtimeScene) {
+};gdjs.MenuCode.userFunc0x9ee888 = function GDJSInlineCode(runtimeScene) {
 "use strict";
-        const Pi = window.Pi;
-        // main payments function
-        function createPayment() {
-            const paymentData = {
-                amount: .01,
-                memo: "This buys you three more insults! What a deal!!!",
-                metadata: { insultid: 123456 }
-            };
-           // the SDK does all this like magic
-            const paymentCallbacks = {
-                onReadyForServerApproval: (paymentDTO) => {
-                        paymentId = paymentDTO
-                        $.post('/payment/approve', {
-                        paymentId: paymentId,
-                        accessToken: accessToken
-                    }
-                    )
-                },
-                onReadyForServerCompletion: (paymentDTO,txid) => {
-                    paymentId = paymentDTO
-                    txid = txid
-                    $.post('/payment/complete', 
-                            {
-                                paymentId: paymentId,
-                                txid: txid,
-                                debug: 'complete'
-                            }
-                        )
-                },
-                onCancel: (paymentDTO) => {
-                    paymentId = paymentDTO.identifier
-                    $.post('/payment/complete',
-                            {
-                                paymentId: paymentId,
-                               // txid: txid,
-                                debug: 'cancel'
-                            }
-                        )
-                },
-                onError: (paymentDTO) => {
-                   console.log('There was an error ', paymentDTO)
-                    paymentId = paymentDTO.identifier
-                    $.post('/payment/error',
-                            {
-                                paymentDTO: paymentDTO,
-                                paymentId: paymentId,
-                                //txid: txid,
-                                debug: 'error'
-                            }
-                        )
-                },
-                onIncompletePaymentFound: function(paymentDTO)
-                { 
-                    paymentId = paymentDTO.identifier
-                    console.log('onIncompletePaymentFound', paymentId)
-                    $.post('/payment/complete',
-                            {
-                                paymentId: paymentId,
-                                txid: paymentDTO.transaction.txid
-                            }
-                        )
-                 }
-            };
-
-            Pi.createPayment(paymentData, paymentCallbacks);
-        }
+Pi.createPayment({
+  // Amount of π to be paid:
+  amount: 3.14,
+  // An explanation of the payment - will be shown to the user:
+  memo: "xyz", // e.g: "Digital kitten #1234",
+  // An arbitrary developer-provided metadata object - for your own usage:
+  metadata: { NexxxTId: 1111 }, // e.g: { kittenId: 1234 }
+}, {
+  // Callbacks you need to implement - read more about those in the detailed docs linked below:
+  onReadyForServerApproval: function(paymentId) { /* ... */ },
+  onReadyForServerCompletion: function(paymentId, txid) { /* ... */ },
+  onCancel: function(paymentId) { /* ... */ },
+  onError: function(error, payment) { /* ... */ },
+});
 
 };
 gdjs.MenuCode.eventsList3 = function(runtimeScene) {
@@ -331,38 +226,30 @@ let isConditionTrue_0 = false;
 {
 
 
-gdjs.MenuCode.userFunc0xa30710(runtimeScene);
+gdjs.MenuCode.userFunc0x9ee888(runtimeScene);
 
 }
 
 
-};gdjs.MenuCode.userFunc0xa307a0 = function GDJSInlineCode(runtimeScene) {
+};gdjs.MenuCode.userFunc0x1382388 = function GDJSInlineCode(runtimeScene) {
 "use strict";
-        const scopes = ['payments','username'];
-        var accessToken
-        var username
-        
+    Pi.init({ version: "2.0" }).then(() => {
+  Pi.authenticate(['username', 'payments'], { instantPayment: true }).then(authResult => {
+    gdjs.getGame().getVariables().get("PI_ACCESS_TOKEN").setString(authResult.accessToken);
+    // ... other setup
+  });
+});
+// Authenticate the user, and get permission to request payments from them:
+const scopes = ['payments'];
 
-        // Read more about this callback in the SDK reference:
-        function onIncompletePaymentFound(payment) { 
-            paymentId = payment.identifier
-            txid = payment.transaction.txid
-            $.post('/payment/complete',
-                    {
-                        paymentId: paymentId,
-                        txid: txid,
-                        debug: 'cancel'
-                    }
-                )
-        };
+// Read more about this callback in the SDK reference:
+function onIncompletePaymentFound(payment) { /* ... */ };
 
-        Pi.authenticate(scopes, onIncompletePaymentFound).then(function(auth) {
-          accessToken = auth.accessToken
-          username = auth.user.username
-          $('#username').text(username); // writes username to the page
-        }).catch(function(error) {
-          console.error(error);
-        });
+Pi.authenticate(scopes, onIncompletePaymentFound).then(function(auth) {
+  console.log(`Hi there! You're ready to make payments!`);
+}).catch(function(error) {
+  console.error(error);
+});
 };
 gdjs.MenuCode.eventsList4 = function(runtimeScene) {
 
@@ -379,7 +266,7 @@ let isConditionTrue_0 = false;
 {
 
 
-gdjs.MenuCode.userFunc0xa307a0(runtimeScene);
+gdjs.MenuCode.userFunc0x1382388(runtimeScene);
 
 }
 

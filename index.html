@@ -259,7 +259,11 @@
 
     <script src="https://sdk.minepi.com/pi-sdk.js"></script>
     <script> Pi.init({ version: "2.0", sandbox: false }) </script>
-    <script> 
+
+   
+</head>
+<body>
+<script> 
         // Authenticate the user, and get permission to request payments from them (added 'username' to provide username to API):
         const scopes = ['payments','username'];
         var accessToken
@@ -286,12 +290,7 @@
         }).catch(function(error) {
           console.error(error);
         });
-    </script>
-
-   
-</head>
-<body>
-
+</script>
 
 	<script>
 

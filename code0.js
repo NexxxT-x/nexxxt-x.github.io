@@ -257,14 +257,6 @@ let isConditionTrue_0 = false;
 }
 
 
-{
-
-
-gdjs.MenuCode.userFunc0x1382388(runtimeScene);
-
-}
-
-
 };gdjs.MenuCode.eventsList5 = function(runtimeScene) {
 
 {

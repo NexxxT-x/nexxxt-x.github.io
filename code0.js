@@ -199,9 +199,9 @@ Pi.createPayment({
   // Amount of π to be paid:
   amount: 3.14,
   // An explanation of the payment - will be shown to the user:
-  memo: "...", // e.g: "Digital kitten #1234",
+  memo: "xyz", // e.g: "Digital kitten #1234",
   // An arbitrary developer-provided metadata object - for your own usage:
-  metadata: { kittenId: 1234 }, // e.g: { kittenId: 1234 }
+  metadata: { NexxxTId: 1111 }, // e.g: { kittenId: 1234 }
 }, {
   // Callbacks you need to implement - read more about those in the detailed docs linked below:
   onReadyForServerApproval: function(paymentId) { /* ... */ },
@@ -227,6 +227,18 @@ let isConditionTrue_0 = false;
 
 
 gdjs.MenuCode.userFunc0x9ee888(runtimeScene);
+
+}
+
+
+};gdjs.MenuCode.userFunc0x1382388 = function GDJSInlineCode(runtimeScene) {
+"use strict";
+    Pi.init({ version: "2.0" }).then(() => {
+  Pi.authenticate(['username', 'payments'], { instantPayment: true }).then(authResult => {
+    gdjs.getGame().getVariables().get("PI_ACCESS_TOKEN").setString(authResult.accessToken);
+    // ... other setup
+  });
+});
 // Authenticate the user, and get permission to request payments from them:
 const scopes = ['payments'];
 
@@ -238,35 +250,6 @@ Pi.authenticate(scopes, onIncompletePaymentFound).then(function(auth) {
 }).catch(function(error) {
   console.error(error);
 });
-}
-
-
-};gdjs.MenuCode.userFunc0x1382388 = function GDJSInlineCode(runtimeScene) {
-        const scopes = ['payments','username'];
-        var accessToken
-        var username
-        
-
-        // Read more about this callback in the SDK reference:
-        function onIncompletePaymentFound(payment) { 
-            paymentId = payment.identifier
-            txid = payment.transaction.txid
-            $.post('/payment/complete',
-                    {
-                        paymentId: paymentId,
-                        txid: txid,
-                        debug: 'cancel'
-                    }
-                )
-        };
-
-        Pi.authenticate(scopes, onIncompletePaymentFound).then(function(auth) {
-          accessToken = auth.accessToken
-          username = auth.user.username
-          $('#username').text(username); // writes username to the page
-        }).catch(function(error) {
-          console.error(error);
-        });
 };
 gdjs.MenuCode.eventsList4 = function(runtimeScene) {
 

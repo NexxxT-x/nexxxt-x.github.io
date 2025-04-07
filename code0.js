@@ -233,12 +233,14 @@ gdjs.MenuCode.userFunc0x9ee888(runtimeScene);
 
 };gdjs.MenuCode.userFunc0x1382388 = function GDJSInlineCode(runtimeScene) {
 "use strict";
-    Pi.init({ version: "2.0" }).then(() => {
-    Pi.authenticate(['username', 'payments'], { instantPayment: true }).then(authResult => {
-    gdjs.getGame().getVariables().get("PI_ACCESS_TOKEN").setString(authResult.accessToken);
-    // ... other setup
+// JS extension function
+  Pi.authenticate(['payments', 'username'], (incompletePayment) => {
+    gdjs.evtTools.piNetwork.log("Incomplete payment: " + incompletePayment);
+  }).then(auth => {
+    gdjs.evtTools.piNetwork.setUser(auth);
+    runtimeScene.getGame().getVariables().get("PI_USER").setString(JSON.stringify(auth));
   });
-});
+};
 };
 gdjs.MenuCode.eventsList4 = function(runtimeScene) {
 

@@ -233,14 +233,31 @@ gdjs.MenuCode.userFunc0x9ee888(runtimeScene);
 
 };gdjs.MenuCode.userFunc0x1382388 = function GDJSInlineCode(runtimeScene) {
 "use strict";
-// JS extension function
-  Pi.authenticate(['payments', 'username'], (incompletePayment) => {
-    gdjs.evtTools.piNetwork.log("Incomplete payment: " + incompletePayment);
-  }).then(auth => {
-    gdjs.evtTools.piNetwork.setUser(auth);
-    runtimeScene.getGame().getVariables().get("PI_USER").setString(JSON.stringify(auth));
-  });
-};
+      const scopes = ['payments','username'];
+        var accessToken
+        var username
+        
+
+        // Read more about this callback in the SDK reference:
+        function onIncompletePaymentFound(payment) { 
+            paymentId = payment.identifier
+            txid = payment.transaction.txid
+            $.post('/payment/complete',
+                    {
+                        paymentId: paymentId,
+                        txid: txid,
+                        debug: 'cancel'
+                    }
+                )
+        };
+
+        Pi.authenticate(scopes, onIncompletePaymentFound).then(function(auth) {
+          accessToken = auth.accessToken
+          username = auth.user.username
+          $('#username').text(username); // writes username to the page
+        }).catch(function(error) {
+          console.error(error);
+        });
 };
 gdjs.MenuCode.eventsList4 = function(runtimeScene) {
 

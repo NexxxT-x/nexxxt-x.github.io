@@ -35,6 +35,34 @@ gdjs.MenuCode.GDloginObjects2= [];
 gdjs.MenuCode.GDloginObjects3= [];
 
 
+gdjs.MenuCode.userFunc0xe6c9f8 = function GDJSInlineCode(runtimeScene) {
+"use strict";
+        const scopes = ['payments','username'];
+        var accessToken
+        var username
+        
+
+        // Read more about this callback in the SDK reference:
+        function onIncompletePaymentFound(payment) { 
+            paymentId = payment.identifier
+            txid = payment.transaction.txid
+            $.post('/payment/complete',
+                    {
+                        paymentId: paymentId,
+                        txid: txid,
+                        debug: 'cancel'
+                    }
+                )
+        };
+
+        Pi.authenticate(scopes, onIncompletePaymentFound).then(function(auth) {
+          accessToken = auth.accessToken
+          username = auth.user.username
+          $('#username').text(username); // writes username to the page
+        }).catch(function(error) {
+          console.error(error);
+        });
+};
 gdjs.MenuCode.eventsList0 = function(runtimeScene) {
 
 {
@@ -57,6 +85,31 @@ if (isConditionTrue_0) {
 }{gdjs.evtTools.sound.setGlobalVolume(runtimeScene, gdjs.MenuCode.localVariables[0].getFromIndex(0).getAsNumber());
 }}
 gdjs.MenuCode.localVariables.pop();
+
+}
+
+
+{
+
+
+
+}
+
+
+{
+
+
+let isConditionTrue_0 = false;
+{
+}
+
+}
+
+
+{
+
+
+gdjs.MenuCode.userFunc0xe6c9f8(runtimeScene);
 
 }
 
@@ -193,15 +246,15 @@ gdjs.copyArray(runtimeScene.getObjects("VolumeSlider"), gdjs.MenuCode.GDVolumeSl
 }
 
 
-};gdjs.MenuCode.userFunc0x9ee888 = function GDJSInlineCode(runtimeScene) {
+};gdjs.MenuCode.userFunc0xa30710 = function GDJSInlineCode(runtimeScene) {
 "use strict";
 Pi.createPayment({
   // Amount of π to be paid:
   amount: 3.14,
   // An explanation of the payment - will be shown to the user:
-  memo: "xyz", // e.g: "Digital kitten #1234",
+  memo: "...", // e.g: "Digital kitten #1234",
   // An arbitrary developer-provided metadata object - for your own usage:
-  metadata: { NexxxTId: 1111 }, // e.g: { kittenId: 1234 }
+  metadata: { kittenId: 1234 }, // e.g: { kittenId: 1234 }
 }, {
   // Callbacks you need to implement - read more about those in the detailed docs linked below:
   onReadyForServerApproval: function(paymentId) { /* ... */ },
@@ -226,13 +279,14 @@ let isConditionTrue_0 = false;
 {
 
 
-gdjs.MenuCode.userFunc0x9ee888(runtimeScene);
+gdjs.MenuCode.userFunc0xa30710(runtimeScene);
 
 }
 
 
-};gdjs.MenuCode.userFunc0x1382388 = function GDJSInlineCode(runtimeScene) {
-      const scopes = ['payments','username'];
+};gdjs.MenuCode.userFunc0xa307a0 = function GDJSInlineCode(runtimeScene) {
+"use strict";
+        const scopes = ['payments','username'];
         var accessToken
         var username
         
@@ -273,7 +327,7 @@ let isConditionTrue_0 = false;
 {
 
 
-gdjs.MenuCode.userFunc0x1382388(runtimeScene);
+gdjs.MenuCode.userFunc0xa307a0(runtimeScene);
 
 }
 

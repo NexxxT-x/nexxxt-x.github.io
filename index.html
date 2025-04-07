@@ -257,8 +257,105 @@
 	<script src="code1.js" crossorigin="anonymous"></script>
 	<script src="data.js" crossorigin="anonymous"></script>
 
-    <script src="https://sdk.minepi.com/pi-sdk.js"></script>
-    <script> Pi.init({ version: "2.0", sandbox: false }) </script>
+        <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+    <script> Pi.init({ version: "2.0", sandbox: true }) </script>
+    <script> 
+        // Authenticate the user, and get permission to request payments from them (added 'username' to provide username to API):
+        const scopes = ['payments','username'];
+        var accessToken
+        var username
+        
+
+        // Read more about this callback in the SDK reference:
+        function onIncompletePaymentFound(payment) { 
+            paymentId = payment.identifier
+            txid = payment.transaction.txid
+            $.post('/payment/complete',
+                    {
+                        paymentId: paymentId,
+                        txid: txid,
+                        debug: 'cancel'
+                    }
+                )
+        };
+
+        Pi.authenticate(scopes, onIncompletePaymentFound).then(function(auth) {
+          accessToken = auth.accessToken
+          username = auth.user.username
+          $('#username').text(username); // writes username to the page
+        }).catch(function(error) {
+          console.error(error);
+        });
+    </script>
+    <script>
+        // we're doing payments
+        const Pi = window.Pi;
+        // main payments function
+        function createPayment() {
+            const paymentData = {
+                amount: .01,
+                memo: "This buys you three more insults! What a deal!!!",
+                metadata: { insultid: 123456 }
+            };
+           // the SDK does all this like magic
+            const paymentCallbacks = {
+                onReadyForServerApproval: (paymentDTO) => {
+                        paymentId = paymentDTO
+                        $.post('/payment/approve', {
+                        paymentId: paymentId,
+                        accessToken: accessToken
+                    }
+                    )
+                },
+                onReadyForServerCompletion: (paymentDTO,txid) => {
+                    paymentId = paymentDTO
+                    txid = txid
+                    $.post('/payment/complete', 
+                            {
+                                paymentId: paymentId,
+                                txid: txid,
+                                debug: 'complete'
+                            }
+                        )
+                },
+                onCancel: (paymentDTO) => {
+                    paymentId = paymentDTO.identifier
+                    $.post('/payment/complete',
+                            {
+                                paymentId: paymentId,
+                               // txid: txid,
+                                debug: 'cancel'
+                            }
+                        )
+                },
+                onError: (paymentDTO) => {
+                   console.log('There was an error ', paymentDTO)
+                    paymentId = paymentDTO.identifier
+                    $.post('/payment/error',
+                            {
+                                paymentDTO: paymentDTO,
+                                paymentId: paymentId,
+                                //txid: txid,
+                                debug: 'error'
+                            }
+                        )
+                },
+                onIncompletePaymentFound: function(paymentDTO)
+                { 
+                    paymentId = paymentDTO.identifier
+                    console.log('onIncompletePaymentFound', paymentId)
+                    $.post('/payment/complete',
+                            {
+                                paymentId: paymentId,
+                                txid: paymentDTO.transaction.txid
+                            }
+                        )
+                 }
+            };
+
+            Pi.createPayment(paymentData, paymentCallbacks);
+        }
+    </script>
 
    
 </head>

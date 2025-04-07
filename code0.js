@@ -233,17 +233,23 @@ gdjs.MenuCode.userFunc0x9ee888(runtimeScene);
 
 };gdjs.MenuCode.userFunc0x1382388 = function GDJSInlineCode(runtimeScene) {
 "use strict";
-       const scopes = ['payments','username'];
-        var accessToken
-        var username
-        
-        Pi.authenticate(scopes, onIncompletePaymentFound).then(function(auth) {
-          accessToken = auth.accessToken
-          username = auth.user.username
-          $('#username').text(username); // writes username to the page
-        }).catch(function(error) {
-          console.error(error);
-        });
+    Pi.init({ version: "2.0" }).then(() => {
+  Pi.authenticate(['username', 'payments'], { instantPayment: true }).then(authResult => {
+    gdjs.getGame().getVariables().get("PI_ACCESS_TOKEN").setString(authResult.accessToken);
+    // ... other setup
+  });
+});
+// Authenticate the user, and get permission to request payments from them:
+const scopes = ['payments'];
+
+// Read more about this callback in the SDK reference:
+function onIncompletePaymentFound(payment) { /* ... */ };
+
+Pi.authenticate(scopes, onIncompletePaymentFound).then(function(auth) {
+  console.log(`Hi there! You're ready to make payments!`);
+}).catch(function(error) {
+  console.error(error);
+});
 };
 gdjs.MenuCode.eventsList4 = function(runtimeScene) {
 

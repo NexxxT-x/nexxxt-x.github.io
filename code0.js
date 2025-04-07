@@ -237,20 +237,6 @@ gdjs.MenuCode.userFunc0x9ee888(runtimeScene);
         var accessToken
         var username
         
-
-        // Read more about this callback in the SDK reference:
-        function onIncompletePaymentFound(payment) { 
-            paymentId = payment.identifier
-            txid = payment.transaction.txid
-            $.post('/payment/complete',
-                    {
-                        paymentId: paymentId,
-                        txid: txid,
-                        debug: 'cancel'
-                    }
-                )
-        };
-
         Pi.authenticate(scopes, onIncompletePaymentFound).then(function(auth) {
           accessToken = auth.accessToken
           username = auth.user.username

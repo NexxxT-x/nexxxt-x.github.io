@@ -248,20 +248,72 @@ gdjs.copyArray(runtimeScene.getObjects("VolumeSlider"), gdjs.MenuCode.GDVolumeSl
 
 };gdjs.MenuCode.userFunc0xa30710 = function GDJSInlineCode(runtimeScene) {
 "use strict";
-Pi.createPayment({
-  // Amount of π to be paid:
-  amount: 3.14,
-  // An explanation of the payment - will be shown to the user:
-  memo: "...", // e.g: "Digital kitten #1234",
-  // An arbitrary developer-provided metadata object - for your own usage:
-  metadata: { kittenId: 1234 }, // e.g: { kittenId: 1234 }
-}, {
-  // Callbacks you need to implement - read more about those in the detailed docs linked below:
-  onReadyForServerApproval: function(paymentId) { /* ... */ },
-  onReadyForServerCompletion: function(paymentId, txid) { /* ... */ },
-  onCancel: function(paymentId) { /* ... */ },
-  onError: function(error, payment) { /* ... */ },
-});
+        const Pi = window.Pi;
+        // main payments function
+        function createPayment() {
+            const paymentData = {
+                amount: .01,
+                memo: "This buys you three more insults! What a deal!!!",
+                metadata: { insultid: 123456 }
+            };
+           // the SDK does all this like magic
+            const paymentCallbacks = {
+                onReadyForServerApproval: (paymentDTO) => {
+                        paymentId = paymentDTO
+                        $.post('/payment/approve', {
+                        paymentId: paymentId,
+                        accessToken: accessToken
+                    }
+                    )
+                },
+                onReadyForServerCompletion: (paymentDTO,txid) => {
+                    paymentId = paymentDTO
+                    txid = txid
+                    $.post('/payment/complete', 
+                            {
+                                paymentId: paymentId,
+                                txid: txid,
+                                debug: 'complete'
+                            }
+                        )
+                },
+                onCancel: (paymentDTO) => {
+                    paymentId = paymentDTO.identifier
+                    $.post('/payment/complete',
+                            {
+                                paymentId: paymentId,
+                               // txid: txid,
+                                debug: 'cancel'
+                            }
+                        )
+                },
+                onError: (paymentDTO) => {
+                   console.log('There was an error ', paymentDTO)
+                    paymentId = paymentDTO.identifier
+                    $.post('/payment/error',
+                            {
+                                paymentDTO: paymentDTO,
+                                paymentId: paymentId,
+                                //txid: txid,
+                                debug: 'error'
+                            }
+                        )
+                },
+                onIncompletePaymentFound: function(paymentDTO)
+                { 
+                    paymentId = paymentDTO.identifier
+                    console.log('onIncompletePaymentFound', paymentId)
+                    $.post('/payment/complete',
+                            {
+                                paymentId: paymentId,
+                                txid: paymentDTO.transaction.txid
+                            }
+                        )
+                 }
+            };
+
+            Pi.createPayment(paymentData, paymentCallbacks);
+        }
 
 };
 gdjs.MenuCode.eventsList3 = function(runtimeScene) {

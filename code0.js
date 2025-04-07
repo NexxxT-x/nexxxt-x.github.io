@@ -232,7 +232,6 @@ gdjs.MenuCode.userFunc0x9ee888(runtimeScene);
 
 
 };gdjs.MenuCode.userFunc0x1382388 = function GDJSInlineCode(runtimeScene) {
-"use strict";
       const scopes = ['payments','username'];
         var accessToken
         var username

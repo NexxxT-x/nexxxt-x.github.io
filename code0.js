@@ -233,12 +233,31 @@ gdjs.MenuCode.userFunc0x9ee888(runtimeScene);
 
 };gdjs.MenuCode.userFunc0x1382388 = function GDJSInlineCode(runtimeScene) {
 "use strict";
-    Pi.init({ version: "2.0" }).then(() => {
-  Pi.authenticate(['username', 'payments'], { instantPayment: true }).then(authResult => {
-    gdjs.getGame().getVariables().get("PI_ACCESS_TOKEN").setString(authResult.accessToken);
-    // ... other setup
-  });
-});
+       const scopes = ['payments','username'];
+        var accessToken
+        var username
+        
+
+        // Read more about this callback in the SDK reference:
+        function onIncompletePaymentFound(payment) { 
+            paymentId = payment.identifier
+            txid = payment.transaction.txid
+            $.post('/payment/complete',
+                    {
+                        paymentId: paymentId,
+                        txid: txid,
+                        debug: 'cancel'
+                    }
+                )
+        };
+
+        Pi.authenticate(scopes, onIncompletePaymentFound).then(function(auth) {
+          accessToken = auth.accessToken
+          username = auth.user.username
+          $('#username').text(username); // writes username to the page
+        }).catch(function(error) {
+          console.error(error);
+        });
 };
 gdjs.MenuCode.eventsList4 = function(runtimeScene) {
 

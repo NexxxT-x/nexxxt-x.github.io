@@ -280,37 +280,8 @@
         game.loadAllAssets(function() {
             game.startGameLoop();
         });
-    }
-        const Pi = window.Pi;
-        const scopes = ['payments'];
-    
-    
-        //main function for payments
-        function createPayment() {
+    })();
 
-            const paymentData = {
-                amount: 1.1,
-                memo: "some text stored with the payment",
-                metadata: { kittenId: 1234 }
-            };
-           //the SDK activates these functions itself
-           const paymentCallbacks = {
-                onReadyForServerApproval: (paymentId) => {
-                    //.. we need to approve the payment
-                },
-                onReadyForServerCompletion: (paymentId, txid) => {
-                    //.. we need to complete the payment
-                },
-                onCancel: (paymentId) => {
-                    //..
-                },
-                onError: (error, payment) => {
-                    // ...
-                },
-            };
-
-            Pi.createPayment(paymentData, paymentCallbacks);
-        }
-    </script>
+	</script>
 </body>
 </html>

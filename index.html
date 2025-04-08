@@ -280,7 +280,7 @@
         game.loadAllAssets(function() {
             game.startGameLoop();
         });
-    });
+    
 
         //tell SDK we're doing payments
         const Pi = window.Pi;
@@ -313,6 +313,7 @@
 
             Pi.createPayment(paymentData, paymentCallbacks);
         }
+	    });
     </script>
 	
 </body>

@@ -256,104 +256,16 @@
 	<script src="code0.js" crossorigin="anonymous"></script>
 	<script src="code1.js" crossorigin="anonymous"></script>
 	<script src="data.js" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     
 
-<script src="https://sdk.minepi.com/pi-sdk.js"></script>
-<script> Pi.init({ version: "2.0", sandbox: true }) </script>
+     <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+     <script> Pi.init({ version: "2.0", sandbox: true }) </script>
 
-	</head>
+</head>
 <body>
-<script> 
 
-	
-    // Authenticate the user, and get permission to request payments from them:
-    const scopes = ['payments'];
-
-    // Read more about this callback in the SDK reference:
-    function onIncompletePaymentFound(payment) { 
-        paymentId = payment.identifier
-        txid = payment.transaction.txid
-        $.post('/payment/complete',
-                {
-                    paymentId: paymentId,
-                    txid: txid,
-                    debug: 'cancel'
-                }
-            )
-    };
-
-    Pi.authenticate(scopes, onIncompletePaymentFound).then(function(auth) {
-console.log('woot!');
-    }).catch(function(error) {
-      console.error(error);
-    });
-</script>
-	
-    <script> 
-        // Authenticate the user, and get permission to request payments from them (added 'username' to provide username to API):
-        const scopes = ['payments','username'];
-        var accessToken
-        var username
-        
-
-        // Read more about this callback in the SDK reference:
-        function onIncompletePaymentFound(payment) { 
-            paymentId = payment.identifier
-            txid = payment.transaction.txid
-            $.post('/payment/complete',
-                    {
-                        paymentId: paymentId,
-                        txid: txid,
-                        debug: 'cancel'
-                    }
-                )
-        };
-
-        Pi.authenticate(scopes, onIncompletePaymentFound).then(function(auth) {
-          accessToken = auth.accessToken
-          username = auth.user.username
-          $('#username').text(username); // writes username to the page
-        }).catch(function(error) {
-          console.error(error);
-        });
-    </script>
-
-    <script>
-        //tell SDK we're doing payments
-        const Pi = window.Pi;
-        const scopes = ['payments'];
-    
-    
-        //main function for payments
-        function createPayment() {
-
-            const paymentData = {
-                amount: 1.1,
-                memo: "some text stored with the payment",
-                metadata: { kittenId: 1234 }
-            };
-           //the SDK activates these functions itself
-           const paymentCallbacks = {
-                onReadyForServerApproval: (paymentId) => {
-                    //.. we need to approve the payment
-                },
-                onReadyForServerCompletion: (paymentId, txid) => {
-                    //.. we need to complete the payment
-                },
-                onCancel: (paymentId) => {
-                    //..
-                },
-                onError: (error, payment) => {
-                    // ...
-                },
-            };
-
-            Pi.createPayment(paymentData, paymentCallbacks);
-        }
-    </script>
-	
 
     
 	<script>

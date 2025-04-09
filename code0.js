@@ -195,6 +195,8 @@ gdjs.copyArray(runtimeScene.getObjects("VolumeSlider"), gdjs.MenuCode.GDVolumeSl
 
 };gdjs.MenuCode.userFunc0x9ee888 = function GDJSInlineCode(runtimeScene) {
 "use strict";
+const Pi = window.Pi
+    Pi.init
 Pi.createPayment({
   // Amount of π to be paid:
   amount: 3.14,
@@ -233,6 +235,7 @@ gdjs.MenuCode.userFunc0x9ee888(runtimeScene);
 
 };gdjs.MenuCode.userFunc0x1382388 = function GDJSInlineCode(runtimeScene) {
 "use strict";
+    const Pi = window.Pi
     Pi.init({ version: "2.0" }).then(() => {
   Pi.authenticate(['username', 'payments'], { instantPayment: true }).then(authResult => {
     gdjs.getGame().getVariables().get("PI_ACCESS_TOKEN").setString(authResult.accessToken);

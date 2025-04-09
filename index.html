@@ -258,8 +258,19 @@
 	<script src="data.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://sdk.minepi.com/pi-sdk.js"></script>
-    <script> Pi.init({ version: "2.0", sandbox: true }) </script>
+    
+Frontend Javascript SDK
+The JS SDK is the frontend SDK, designed to be used in your HTML pages or Single-Page Apps, served in the Pi Browser.
+
+In order to enable the SDK to function correctly, you need to declare your apps on the Developer Portal (open develop.pi in the Pi Browser to access the Developer Portal).
+
+This SDK is not for a server-side NodeJS app.
+
+Installation
+Add the following script tags to all pages where you need to call the Pi Apps SDK:
+
+<script src="https://sdk.minepi.com/pi-sdk.js"></script>
+<script>Pi.init({ version: "2.0" })</script>
     <script> 
         // Authenticate the user, and get permission to request payments from them (added 'username' to provide username to API):
         const scopes = ['payments','username'];
@@ -288,87 +299,40 @@
           console.error(error);
         });
     </script>
+
     <script>
-        // we're doing payments
+        //tell SDK we're doing payments
         const Pi = window.Pi;
-        // main payments function
+        const scopes = ['payments'];
+    
+    
+        //main function for payments
         function createPayment() {
+
             const paymentData = {
-                amount: .01,
-                memo: "This buys you three more insults! What a deal!!!",
-                metadata: { insultid: 123456 }
+                amount: 1.1,
+                memo: "some text stored with the payment",
+                metadata: { kittenId: 1234 }
             };
-           // the SDK does all this like magic
-            const paymentCallbacks = {
-                onReadyForServerApproval: (paymentDTO) => {
-                        paymentId = paymentDTO
-                        $.post('/payment/approve', {
-                        paymentId: paymentId,
-                        accessToken: accessToken
-                    }
-                    )
+           //the SDK activates these functions itself
+           const paymentCallbacks = {
+                onReadyForServerApproval: (paymentId) => {
+                    //.. we need to approve the payment
                 },
-                onReadyForServerCompletion: (paymentDTO,txid) => {
-                    paymentId = paymentDTO
-                    txid = txid
-                    $.post('/payment/complete', 
-                            {
-                                paymentId: paymentId,
-                                txid: txid,
-                                debug: 'complete'
-                            }
-                        )
+                onReadyForServerCompletion: (paymentId, txid) => {
+                    //.. we need to complete the payment
                 },
-                onCancel: (paymentDTO) => {
-                    paymentId = paymentDTO.identifier
-                    $.post('/payment/complete',
-                            {
-                                paymentId: paymentId,
-                               // txid: txid,
-                                debug: 'cancel'
-                            }
-                        )
+                onCancel: (paymentId) => {
+                    //..
                 },
-                onError: (paymentDTO) => {
-                   console.log('There was an error ', paymentDTO)
-                    paymentId = paymentDTO.identifier
-                    $.post('/payment/error',
-                            {
-                                paymentDTO: paymentDTO,
-                                paymentId: paymentId,
-                                //txid: txid,
-                                debug: 'error'
-                            }
-                        )
+                onError: (error, payment) => {
+                    // ...
                 },
-                onIncompletePaymentFound: function(paymentDTO)
-                { 
-                    paymentId = paymentDTO.identifier
-                    console.log('onIncompletePaymentFound', paymentId)
-                    $.post('/payment/complete',
-                            {
-                                paymentId: paymentId,
-                                txid: paymentDTO.transaction.txid
-                            }
-                        )
-                 }
             };
 
             Pi.createPayment(paymentData, paymentCallbacks);
         }
     </script>
-    <script type="text/javascript">
-        function fn_copy(data)
-    {
-        var temp = document.getElementById("insult").value;
-        if(temp != "")
-    {
-        document.getElementById("target_"+data).value = temp;
-    }
-    else
-        alert("Text is Empty");
-    }
-</script>
 	
 
 </head>

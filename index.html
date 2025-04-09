@@ -259,18 +259,33 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     
-Frontend Javascript SDK
-The JS SDK is the frontend SDK, designed to be used in your HTML pages or Single-Page Apps, served in the Pi Browser.
-
-In order to enable the SDK to function correctly, you need to declare your apps on the Developer Portal (open develop.pi in the Pi Browser to access the Developer Portal).
-
-This SDK is not for a server-side NodeJS app.
-
-Installation
-Add the following script tags to all pages where you need to call the Pi Apps SDK:
 
 <script src="https://sdk.minepi.com/pi-sdk.js"></script>
-<script>Pi.init({ version: "2.0" })</script>
+<script> Pi.init({ version: "2.0", sandbox: true }) </script>
+<script> 
+    // Authenticate the user, and get permission to request payments from them:
+    const scopes = ['payments'];
+
+    // Read more about this callback in the SDK reference:
+    function onIncompletePaymentFound(payment) { 
+        paymentId = payment.identifier
+        txid = payment.transaction.txid
+        $.post('/payment/complete',
+                {
+                    paymentId: paymentId,
+                    txid: txid,
+                    debug: 'cancel'
+                }
+            )
+    };
+
+    Pi.authenticate(scopes, onIncompletePaymentFound).then(function(auth) {
+console.log('woot!');
+    }).catch(function(error) {
+      console.error(error);
+    });
+</script>
+	
     <script> 
         // Authenticate the user, and get permission to request payments from them (added 'username' to provide username to API):
         const scopes = ['payments','username'];
